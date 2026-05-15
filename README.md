@@ -45,6 +45,12 @@ O usuário cadastra os lançamentos na planilha — fixos mensalmente, eventuais
 
 ---
 
+## 🔗 Ver Dashboard Online
+
+[![Power BI](https://img.shields.io/badge/Power%20BI-Abrir%20Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiOTExYjkzNGUtNDcyNi00NDRhLTlhNWUtMTgzMjkxOTdiMWY2IiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9)
+
+---
+
 ## 📸 Preview
 
 ### Home
