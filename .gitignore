@@ -1,0 +1,10 @@
+# Arquivos temporários do Excel
+~$*
+
+# Arquivo pessoal específico
+financeiro_victor.xlsm
+
+# Pastas de sistema e dados
+.idea/
+Data/
+.claude/
