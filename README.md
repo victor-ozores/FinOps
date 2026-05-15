@@ -18,9 +18,9 @@
 
 Dashboard de controle financeiro pessoal construído do zero com Excel como fonte de dados e Power BI como camada de visualização — sem custo, sem plataforma externa.
 
-O problema era simples: eu gastava mais do que percebia e não sabia para onde o dinheiro ia, especialmente no cartão de crédito. O dashboard resolve isso mostrando em tempo real o que já fechou na fatura, o que está pendente, quanto foi gasto por categoria e qual é a taxa de poupança real do período.
+O problema era simples: eu gastava mais do que percebia e não sabia para onde o dinheiro ia, especialmente no cartão de crédito. O dashboard mostra o que já fechou na fatura, o que está pendente, quanto foi gasto por categoria e qual é a taxa de poupança real do período.
 
-O pipeline é 100% automatizado — o usuário preenche a planilha, o VBA processa ao abrir e o Power BI reflete tudo após o refresh.
+O usuário cadastra os lançamentos na planilha — fixos mensalmente, eventuais a cada compra. A planilha conta com automações que ajudam no processo, e o Power BI reflete tudo após o refresh.
 
 ---
 
@@ -97,7 +97,7 @@ Excel (.xlsm)
   ├── tbl_Base_User                ← serviços por categoria, editável livremente
   └── tbl_Projecao_Lancamentos_Fixos ← controle de projeções (100% automático)
         │
-        ▼ VBA (9 módulos — roda ao abrir o arquivo)
+        ▼ VBA (9 módulos — automações que ajudam no processo ao abrir)
         │
         ▼ Power Query (ETL)
         │
