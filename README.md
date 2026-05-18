@@ -14,7 +14,7 @@
 
 ---
 
-## Resumo
+## 📌 Resumo
 
 Dashboard de controle financeiro pessoal construído do zero com Excel como fonte de dados e Power BI como camada de visualização — sem custo, sem plataforma externa.
 
@@ -22,9 +22,13 @@ O problema era simples: eu gastava mais do que percebia e não sabia para onde o
 
 O usuário cadastra os lançamentos na planilha — fixos mensalmente, eventuais a cada compra. A planilha conta com automações que ajudam no processo, e o Power BI reflete tudo após o refresh.
 
+## 🔗 Ver Dashboard Online
+
+[![Power BI](https://img.shields.io/badge/Power%20BI-Abrir%20Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiOTExYjkzNGUtNDcyNi00NDRhLTlhNWUtMTgzMjkxOTdiMWY2IiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9&pageName=431d226465d4e320e2a1)
+
 ---
 
-## O Que Ele Responde
+## 💡 O Que Ele Responde
 
 - Quanto gastei este mês e em qual categoria?
 - O que já entrou na fatura do cartão vs. o que ainda está em aberto?
@@ -34,20 +38,14 @@ O usuário cadastra os lançamentos na planilha — fixos mensalmente, eventuais
 
 ---
 
-## Páginas do Dashboard
+## 📊 Páginas do Dashboard
 
 | Página | O que entrega |
 |--------|---------------|
 | **Visão Geral** | Panorama completo: receita, despesa, saldo, próximos vencimentos 7 dias, distribuição por categoria |
-| **Lançamentos** | Taxa de poupança, receita comprometida, waterfall de impacto por categoria no saldo |
-| **Detalhamento** | Matriz Categoria × Mês com drill-down por lançamento individual |
+| **Lançamentos** | Taxa de poupança, quanto da renda já está comprometida e o impacto de cada categoria no saldo final |
+| **Detalhamento** | Tabela cruzada Categoria × Mês — expande cada categoria para ver os lançamentos individuais |
 | **Registros** | Tabela completa de todos os lançamentos com status, método e tipo |
-
----
-
-## 🔗 Ver Dashboard Online
-
-[![Power BI](https://img.shields.io/badge/Power%20BI-Abrir%20Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiOTExYjkzNGUtNDcyNi00NDRhLTlhNWUtMTgzMjkxOTdiMWY2IiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9&pageName=431d226465d4e320e2a1)
 
 ---
 
@@ -96,14 +94,14 @@ Se quiser usar ou adaptar para o seu controle financeiro, me chama:
 
 ```
 Excel (.xlsm)
-  ├── tbl_Lancamentos_Fixos        ← lançamentos recorrentes (mensal, semanal, trimestral...)
-  ├── tbl_Lancamentos_Eventuais    ← compras pontuais e parcelamentos
-  ├── tbl_Base_Cartoes_Credito     ← cadastro de cartões com dia de fechamento e vencimento
-  ├── tbl_Base_Sistema             ← configurações: categorias, métodos, status, responsáveis
-  ├── tbl_Base_User                ← serviços por categoria, editável livremente
+  ├── tbl_Lancamentos_Fixos          ← lançamentos recorrentes (mensal, semanal, trimestral...)
+  ├── tbl_Lancamentos_Eventuais      ← compras pontuais e parcelamentos
+  ├── tbl_Base_Cartoes_Credito       ← cadastro de cartões com dia de fechamento e vencimento
+  ├── tbl_Base_Sistema               ← configurações: categorias, métodos, status, responsáveis
+  ├── tbl_Base_User                  ← serviços por categoria, editável livremente
   └── tbl_Projecao_Lancamentos_Fixos ← controle de projeções (100% automático)
         │
-        ▼ VBA (9 módulos — automações que ajudam no processo ao abrir)
+        ▼ VBA (9 módulos)
         │
         ▼ Power Query (ETL)
         │
@@ -114,7 +112,11 @@ Excel (.xlsm)
         │
         ▼ 128 medidas DAX · 7 UDFs
         │
-        ▼ Report (4 páginas)
+        ▼ Report
+  ├── Visão Geral      ← KPIs, evolução receita vs despesa, distribuição por categoria
+  ├── Lançamentos      ← poupança, receita comprometida, impacto por categoria
+  ├── Detalhamento     ← matriz Categoria × Mês expansível
+  └── Registros        ← tabela completa de lançamentos
 ```
 
 ---
@@ -123,7 +125,7 @@ Excel (.xlsm)
 
 | Módulo | O que faz |
 |--------|-----------|
-| `mod01FilaGlobal` | Orquestrador — executa os 8 módulos em sequência via `Workbook_Open` ou botão |
+| `mod01FilaGlobal` | Orquestrador — executa os outros 8 módulos em sequência via `Workbook_Open` ou botão |
 | `modReorganizarColunas` | Ordena colunas e valores de `tbl_Base_User` e `tbl_Base_Sistema` alfabeticamente, preservando cores de fundo |
 | `modPreencherFrequencia` | Preenche `FREQUENCIA = "MENSAL"` automaticamente quando vazio |
 | `modFilaCore` | Motor de projeção de fixos — chave composta `RESPONSAVEL|SERVICO|VALOR|TIPO`, suporta 7 frequências, dialog por bloco |
@@ -192,14 +194,16 @@ Excel (.xlsm)
 
 ### Padrões Aplicados
 
-- ✅ Nomenclatura SQLBI: `Fact_`, `Dim_`, `_Medidas`
-- ✅ Formatação DAX via daxformatter.com — `VAR/RETURN` em todas as medidas não triviais
-- ✅ `DIVIDE()` onde denominador pode ser zero — nunca `+ 0` desnecessário
-- ✅ `FILTER(ALL())` em vez de `FILTER(table)` quando boolean resolve
-- ✅ `Remove Other Columns` no Power Query — proteção de schema
-- ✅ Date Table marcada · Auto date/time desabilitado
-- ✅ Colunas de relacionamento como inteiro — sem GUID como chave
-- ✅ Staging queries com `Enable Load: OFF`
+| Padrão | Por quê |
+|--------|---------|
+| Nomenclatura SQLBI: `Fact_`, `Dim_`, `_Medidas` | Deixa o modelo autoexplicativo — qualquer analista entende a estrutura ao abrir |
+| `VAR/RETURN` em todas as medidas não triviais | Evita calcular a mesma expressão duas vezes e facilita a leitura do código |
+| `DIVIDE()` onde denominador pode ser zero | Previne erros silenciosos — retorna BLANK em vez de travar o visual |
+| `FILTER(ALL())` em vez de `FILTER(table)` | Evita iteração desnecessária sobre toda a tabela quando um predicado booleano resolve |
+| `Remove Other Columns` no Power Query | Protege o pipeline — se a fonte adicionar colunas novas, o refresh não quebra |
+| Date Table marcada + Auto date/time desabilitado | Garante que as funções de inteligência de tempo funcionem corretamente e remove hierarquias de data automáticas que inflam o modelo |
+| Chaves de relacionamento como inteiro | GUID como chave de join é ineficiente — inteiro comprime melhor no VertiPaq |
+| Staging queries com `Enable Load: OFF` | Queries intermediárias não carregam no modelo — reduz tamanho do .pbix |
 
 </details>
 
