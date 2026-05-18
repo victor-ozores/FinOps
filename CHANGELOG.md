@@ -5,16 +5,6 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/).
 
 ---
 
-## [Unreleased]
-
-### Planned
-- Página de metas mensais por categoria
-- Suporte a múltiplos responsáveis com visões separadas
-- Exportação de relatório mensal via Power Automate
-- Integração com Google Sheets como fonte alternativa
-
----
-
 ## [1.0.0] - 2026-05-15
 
 ### Added
